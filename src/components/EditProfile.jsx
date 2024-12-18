@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserCard from "./UserCard";
+import LoggedInUserCard from "./LoggedInUserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
@@ -38,7 +38,9 @@ const EditProfile = ({ user }) => {
         setShowToast(false);
       }, 3000);
     } catch (err) {
-      setError(err.response.data);
+      //setError(err.response.data);
+      setError(err.response?.data || "An unexpected error occurred.");
+
     }
   };
 
@@ -126,7 +128,7 @@ const EditProfile = ({ user }) => {
             </div>
           </div>
         </div>
-        <UserCard
+        <LoggedInUserCard
           user={{ firstName, lastName, photoUrl, age, gender, about }}
         />
       </div>

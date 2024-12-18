@@ -40,6 +40,7 @@ const UserCard = ({ user }) => {
           >
             Interested
           </button>
+
         </div>
       </div>
     </div>

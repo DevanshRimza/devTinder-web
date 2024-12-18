@@ -15,13 +15,17 @@ const Feed = () => {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
       });
-      dispatch(addFeed(res?.data?.data));
-    } catch (err) {
+      
+     dispatch(addFeed(res?.data?.data));
+    } catch(err) {
       //TODO: handle error
+      console.error("Error fetching feed:", err); // Error log
+
     }
   };
 
   useEffect(() => {
+    console.log(feed);
     getFeed();
   }, []);
   if (!feed) return;
