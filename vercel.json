@@ -1,9 +1,14 @@
 {
     "builds": [
       {
-        "src": "tailwind.config.js",
+        "env": {
+      "NODE_VERSION": "18"
+    },
+        "src": "tailwind.config.cjs",
         "use": "@vercel/node"
       }
     ]
   }
+
+  
   
