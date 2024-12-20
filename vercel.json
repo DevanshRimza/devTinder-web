@@ -2,7 +2,7 @@
     "builds": [
       {
         "env": {
-      "NODE_VERSION": "18"
+      "NODE_VERSION": "20"
     },
         "src": "tailwind.config.cjs",
         "use": "@vercel/node"
