@@ -1,0 +1,9 @@
+{
+    "builds": [
+      {
+        "src": "tailwind.config.js",
+        "use": "@vercel/node"
+      }
+    ]
+  }
+  
