@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --debug",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "local-build": "echo Building locally with debugging enabled && npm run build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
