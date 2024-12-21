@@ -10,11 +10,14 @@ const Connections = () => {
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
+      //const res = await axios.get("https://dev-tinder-livid.vercel.app/user/connections", {
         withCredentials: true,
       });
+      console.log(res.data.data);
       dispatch(addConnections(res.data.data));
     } catch (err) {
       // Handle Error Case
+      console.error("Error fetching connections:", err);
     }
   };
 
