@@ -18,32 +18,29 @@ function App() {
     <Provider store={appStore}>
       <BrowserRouter basename="/">
         <Routes>
-          {/* Default route redirects to login if not authenticated */}
+          {/* Public Route for Login */}
           <Route
-            path="/"
+            path="/login"
             element={
-              isAuthenticated() ? (
-                <Navigate to="/feed" />
-              ) : (
-                <Navigate to="/login" />
-              )
+              isAuthenticated() ? <Navigate to="/feed" /> : <Login />
             }
           />
 
-          {/* Login Route */}
-          <Route path="/login" element={<Login />} />
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              isAuthenticated() ? <Body /> : <Navigate to="/login" />
+            }
+          >
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/connections" element={<Connections />} />
+            <Route path="/requests" element={<Requests />} />
+          </Route>
 
-          {/* Protected Routes - Require Authentication */}
-          {isAuthenticated() ? (
-            <Route path="/" element={<Body />}>
-              <Route path="/feed" element={<Feed />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/connections" element={<Connections />} />
-              <Route path="/requests" element={<Requests />} />
-            </Route>
-          ) : (
-            <Route path="*" element={<Navigate to="/login" />} />
-          )}
+          {/* Catch-all route */}
+          <Route path="*" element={<Navigate to={isAuthenticated() ? "/feed" : "/login"} />} />
         </Routes>
       </BrowserRouter>
     </Provider>
