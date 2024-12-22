@@ -40,7 +40,7 @@ function App() {
           </Route>
 
           {/* Catch-all route */}
-          <Route path="*" element={<Navigate to={isAuthenticated() ? "/feed" : "/login"} />} />
+          <Route path="*" element={<Navigate to={isAuthenticated() ? "/profile" : "/login"} />} />
         </Routes>
       </BrowserRouter>
     </Provider>
