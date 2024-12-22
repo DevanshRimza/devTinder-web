@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
@@ -9,50 +8,48 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 
-// Function to check authentication
+// Example function for authentication check
 const isAuthenticated = () => {
-  return localStorage.getItem("token") !== null; // Replace with your logic
+  return localStorage.getItem("token") !== null; // Replace with your actual authentication logic
 };
 
 function App() {
-  // State to track authentication changes
-  const [auth, setAuth] = useState(isAuthenticated());
-
-  useEffect(() => {
-    // Listen for storage changes (useful for multi-tabs)
-    const handleStorageChange = () => {
-      setAuth(isAuthenticated());
-    };
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
   return (
     <Provider store={appStore}>
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <Routes>
-          {/* Login Page */}
+          {/* Login Route */}
           <Route
             path="/login"
-            element={auth ? <Navigate to="/profile" /> : <Login setAuth={setAuth} />}
+            element={
+              isAuthenticated() ? <Navigate to="/feed" /> : <Login />
+            }
           />
 
           {/* Protected Routes */}
           <Route
             path="/"
-            element={auth ? <Body /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated() ? <Body /> : <Navigate to="/login" />
+            }
           >
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/connections" element={<Connections />} />
-            <Route path="/requests" element={<Requests />} />
+            <Route path="feed" element={<Feed />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="connections" element={<Connections />} />
+            <Route path="requests" element={<Requests />} />
           </Route>
 
-          {/* Catch-all route */}
-          <Route path="*" element={<Navigate to={auth ? "/profile" : "/login"} />} />
+          {/* Catch-All Route */}
+          <Route
+            path="*"
+            element={
+              isAuthenticated() ? (
+                <Navigate to="/feed" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
